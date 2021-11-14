@@ -29,13 +29,13 @@ struct VideoView: View{
 struct Home: View {
     
     let allSongs = [
-        
-        Song(name:"HotelCalifornia",capo:"0",sheet: "sheet-HotelCalifornia", lyric: ""),
-        Song(name:"YouSayGoodbyeEasily",capo:"0",sheet: "sheet-YouSayGoodbyeEasily", lyric: ""),
-        Song(name:"煙幕",capo:"0",sheet: "sheet-煙幕", lyric: ""),
-        Song(name:"說好的幸福呢",capo:"0",sheet: "sheet-說好的幸福呢", lyric: ""),
-        Song(name:"刻在我心底的名字",capo:"1",sheet: "sheet-刻在我心底的名字", lyric: ""),
-        Song(name:"不是因為天氣晴朗才愛你",capo:"2",sheet: "sheet-不是因為天氣晴朗才愛你", lyric: "")
+        Song(name:"While Your Lips Are Still Red",capo:"1",sheet: "sheet-While Your Lips Are Still Red", sheetNumber:5),
+        Song(name:"HotelCalifornia",capo:"0",sheet: "sheet-HotelCalifornia", sheetNumber:1),
+        Song(name:"YouSayGoodbyeEasily",capo:"0",sheet: "sheet-YouSayGoodbyeEasily", sheetNumber:1),
+        Song(name:"煙幕",capo:"0",sheet: "sheet-煙幕", sheetNumber:1),
+        Song(name:"說好的幸福呢",capo:"0",sheet: "sheet-說好的幸福呢", sheetNumber:1),
+        Song(name:"刻在我心底的名字",capo:"1",sheet: "sheet-刻在我心底的名字", sheetNumber:1),
+        Song(name:"不是因為天氣晴朗才愛你",capo:"2",sheet: "sheet-不是因為天氣晴朗才愛你", sheetNumber:2)
     ]
     
     let songStyle = ["loveSongs","rockSongs","jazzSongs"]
@@ -54,15 +54,34 @@ struct Home: View {
         Links(name: "刷弦技巧", url: "https://youtu.be/nQQcfsFhX_8"),
         Links(name: "指彈基本功", url: "https://youtu.be/DVTWSOgyrAM"),
     ]
-        
+    
+    @State private var opacity: Double = 1
+    @State private var scale: CGFloat = 1
+    @State private var button = false
+    
     var body: some View {
         
         NavigationView{
             
             VStack{
-                Image("首頁圖")
-                    .resizable()
-                    .frame(width: 450, height: 300)
+                Button(action: {
+                    button.toggle()
+                    
+                    if button == true{
+                        opacity = 0.8
+                        scale = 1.5
+                    }else{
+                        opacity = 1
+                        scale = 1
+                    }
+                }, label: {
+                    Image("首頁圖")
+                        .resizable()
+                        .frame(width: 450, height: 300)
+                        .animation(.default, value: opacity)
+                        .animation(.default, value: scale)
+                })
+                
                 Section(header: Text("聽音樂囉")){
                     ScrollView(.horizontal){
                         HStack{
@@ -98,7 +117,6 @@ struct Home: View {
                                                 .resizable()
                                                 .frame(width: 150, height: 100)
                                             Text(link.name)
-
                                         }
                                     }
                                 )

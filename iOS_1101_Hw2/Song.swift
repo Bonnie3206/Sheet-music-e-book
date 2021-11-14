@@ -13,5 +13,5 @@ struct Song:Identifiable{
     let name : String
     let capo : String
     let sheet : String
-    let lyric : String
+    let sheetNumber : Int
 }

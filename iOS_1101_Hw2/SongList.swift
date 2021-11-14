@@ -9,12 +9,13 @@ import SwiftUI
 
 struct SongList: View {
     let allSongs = [
-        Song(name:"不是因為天氣晴朗才愛你",capo:"2",sheet: "sheet-不是因為天氣晴朗才愛你", lyric: ""),
-        Song(name:"HotelCalifornia",capo:"0",sheet: "sheet-HotelCalifornia", lyric: ""),
-        Song(name:"YouSayGoodbyeEasily",capo:"0",sheet: "sheet-YouSayGoodbyeEasily", lyric: ""),
-        Song(name:"煙幕",capo:"0",sheet: "sheet-煙幕", lyric: ""),
-        Song(name:"說好的幸福呢",capo:"0",sheet: "sheet-說好的幸福呢", lyric: ""),
-        Song(name:"刻在我心底的名字",capo:"1",sheet: "sheet-刻在我心底的名字", lyric: "")
+        Song(name:"While Your Lips Are Still Red",capo:"1",sheet: "sheet-While Your Lips Are Still Red", sheetNumber:5),
+        Song(name:"不是因為天氣晴朗才愛你",capo:"2",sheet: "sheet-不是因為天氣晴朗才愛你", sheetNumber: 2),
+        Song(name:"HotelCalifornia",capo:"0",sheet: "sheet-HotelCalifornia", sheetNumber:1),
+        Song(name:"YouSayGoodbyeEasily",capo:"0",sheet: "sheet-YouSayGoodbyeEasily", sheetNumber:1),
+        Song(name:"煙幕",capo:"0",sheet: "sheet-煙幕", sheetNumber:1),
+        Song(name:"說好的幸福呢",capo:"0",sheet: "sheet-說好的幸福呢", sheetNumber:1),
+        Song(name:"刻在我心底的名字",capo:"1",sheet: "sheet-刻在我心底的名字", sheetNumber:1)
     ]
     
     let songStyle = ["loveSongs","rockSongs","jazzSongs"]
@@ -25,6 +26,8 @@ struct SongList: View {
             
             VStack{
                 Text("風格")
+                    .background(LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: UnitPoint(x:0,y:0), endPoint: UnitPoint(x:1,y:1)))
+                    .offset(x: -65, y: 10)
                 ScrollView(.horizontal){
                     HStack{
                         ForEach(songStyle,id:\.self){
@@ -35,7 +38,8 @@ struct SongList: View {
                                     VStack{
                                         Image(song)
                                             .resizable()
-                                            .frame(width: 150, height: 100)
+                                            .frame(width: 140, height: 100)
+                                            .cornerRadius(20)
                                         if song == "loveSongs"{
                                             
                                             Text("情歌")
@@ -60,7 +64,7 @@ struct SongList: View {
                         Text("歌曲")
                         ForEach(allSongs){
                             song in
-                            NavigationLink(destination: SongDetail(name:song.name, sheet: song.sheet),label:{
+                            NavigationLink(destination: SongDetail(name:song.name, sheet: song.sheet, sheetNumber: song.sheetNumber),label:{
                                 
                                 HStack{
                                     Image("\(song.name)")
@@ -82,13 +86,22 @@ struct SongDetail: View {
     
     let name: String
     let sheet: String
+    let sheetNumber: Int
+    var number = 0
     
     var body: some View {
         
         VStack{
             Text(name)
-            Image(sheet)
-                .resizable()
+            TabView{
+                ForEach(1..<sheetNumber+1){numbers in
+                    
+                    
+                    Image("\(sheet)"+"\(numbers)")
+                        .resizable()
+                        .transition(.opacity)
+                }
+            }.tabViewStyle(PageTabViewStyle())
         }
     }
 }
@@ -96,16 +109,17 @@ struct SongDetail: View {
 struct Style: View {
     
     let loveSongs = [
-        Song(name:"不是因為天氣晴朗才愛你",capo:"2",sheet: "sheet-不是因為天氣晴朗才愛你", lyric: ""),
-        Song(name:"刻在我心底的名字",capo:"1",sheet: "sheet-刻在我心底的名字", lyric: ""),
-        Song(name:"煙幕",capo:"0",sheet: "sheet-煙幕", lyric: ""),
-        Song(name:"說好的幸福呢",capo:"0",sheet: "sheet-說好的幸福呢", lyric: ""),
+        Song(name:"不是因為天氣晴朗才愛你",capo:"2",sheet: "sheet-不是因為天氣晴朗才愛你", sheetNumber:2),
+        Song(name:"刻在我心底的名字",capo:"1",sheet: "sheet-刻在我心底的名字", sheetNumber:1),
+        Song(name:"煙幕",capo:"0",sheet: "sheet-煙幕", sheetNumber:1),
+        Song(name:"說好的幸福呢",capo:"0",sheet: "sheet-說好的幸福呢", sheetNumber:1),
     ]
     let rockSongs = [
-        Song(name:"HotelCalifornia",capo:"0",sheet: "sheet-hotelCalifornia", lyric: "")
+        Song(name:"While Your Lips Are Still Red",capo:"1",sheet: "sheet-While Your Lips Are Still Red", sheetNumber:5),
+        Song(name:"HotelCalifornia",capo:"0",sheet: "sheet-hotelCalifornia", sheetNumber:1)
     ]
     let jazzSongs = [
-        Song(name:"YouSayGoodbyeEasily",capo:"0",sheet: "sheet-YouSayGoodbyeEasily", lyric: ""),
+        Song(name:"YouSayGoodbyeEasily",capo:"0",sheet: "sheet-YouSayGoodbyeEasily", sheetNumber:1),
     ]
     
     let style: String
@@ -120,7 +134,7 @@ struct Style: View {
                     ForEach(loveSongs){
                         song in
                         NavigationLink(
-                            destination: SongDetail(name: song.name, sheet: song.sheet),
+                            destination: SongDetail(name: song.name, sheet: song.sheet, sheetNumber: song.sheetNumber),
                             label: {
                                 HStack{
                                     Image("\(song.name)")
@@ -139,7 +153,7 @@ struct Style: View {
                     ForEach(rockSongs){
                         song in
                         NavigationLink(
-                            destination: SongDetail(name: song.name, sheet: song.sheet),
+                            destination: SongDetail(name: song.name, sheet: song.sheet, sheetNumber: song.sheetNumber),
                             label: {
                                 HStack{
                                     Image("\(song.name)")
@@ -158,7 +172,7 @@ struct Style: View {
                     ForEach(jazzSongs){
                         song in
                         NavigationLink(
-                            destination: SongDetail(name: song.name, sheet: song.sheet),
+                            destination: SongDetail(name: song.name, sheet: song.sheet, sheetNumber: song.sheetNumber),
                             label: {
                                 HStack{
                                     Image("\(song.name)")
