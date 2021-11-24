@@ -25,11 +25,13 @@ struct SongList: View {
         NavigationView{
             
             VStack{
-                Text("風格")
+                Text("風格:")
                     .background(LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: UnitPoint(x:0,y:0), endPoint: UnitPoint(x:1,y:1)))
-                    .offset(x: -65, y: 10)
+                    .offset(x: -85, y: 20)
+                    .scaleEffect(1.5)
                 ScrollView(.horizontal){
-                    HStack{
+                    let rows = [GridItem()]
+                    LazyHGrid(rows: rows){
                         ForEach(songStyle,id:\.self){
                             song in
                             NavigationLink(

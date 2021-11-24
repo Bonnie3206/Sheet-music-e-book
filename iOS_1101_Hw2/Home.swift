@@ -41,8 +41,8 @@ struct Home: View {
     let songStyle = ["loveSongs","rockSongs","jazzSongs"]
     let songVideos = [
         
-        Video(name: "HotelCalifornia", url: "https://youtu.be/EqPtz5qN7HM"),
-        Video(name: "煙幕", url: "https://youtu.be/P8uJ4gFjJGE"),
+        Video(name: "HotelCalifornia", url: "https://redirector.googlevideo.com/videoplayback?expire=1637746000&ei=8LCdYa2jLMPL7QTMyKP4BQ&ip=45.137.189.179&id=o-AOO9EQRkATtDGFJBXHTSeyedzFIWNP_6PTOaO9fYBkbA&itag=18&source=youtube&requiressl=yes&mh=0T&mm=31%2C26&mn=sn-n8v7znlk%2Csn-c0q7lns7&ms=au%2Conr&mv=m&mvi=1&pl=24&gcr=ru&initcwndbps=6357500&vprv=1&mime=video%2Fmp4&ns=3pueGSc1gZurfG2ZVYbNxAwG&gir=yes&clen=19340238&ratebypass=yes&dur=390.420&lmt=1598077993341988&mt=1637723586&fvip=1&fexp=24001373%2C24007246&c=WEB&txp=5531422&n=JyOGPMISjv-Ynt1w&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cgcr%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIgEji1bFobFMEjq3h9d7Rls4rPRCn_P7rRk1I9AQezxdkCIQDJRDxWOBscXWf4Holazy7s0oZo4vGQeRf5kukmRnVXqA%3D%3D&sig=AOq0QJ8wRgIhAI6Y2Qb-g_raNu9dq4cSKmSP3cnQCLG1mopbu8h_gteQAiEA0ivir31BvUvg8ZfyMfghorwZ3-zvj8mhrdbGb3xy9bo=&title=Eagles_-_Hotel_California"),
+        Video(name: "煙幕", url: "https://bit.ly/3FHHLHP"),
         Video(name: "說好的幸福呢", url: "https://youtu.be/mLFhTFiX0uM"),
         Video(name: "刻在我心底的名字", url: "https://youtu.be/m78lJuzftcc"),
         Video(name: "不是因為天氣晴朗才愛你", url: "https://youtu.be/9_068Ekk_fs"),
@@ -104,7 +104,6 @@ struct Home: View {
                 }
                 
                 Section(header: Text("如何練吉他")){
-                    
                     ScrollView(.horizontal){
                         HStack{
                             ForEach(learingLinks){
